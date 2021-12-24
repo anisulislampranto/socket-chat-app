@@ -15,8 +15,11 @@ app.get('/', (req, res) => {
 io.on('connection', (socket) => {
   console.log('a user connected');
 
+  // receive message data from client
   socket.on('chat', (data)=> {
       console.log(data);
+    // send message to show client side 
+    io.emit('showChat', data)
   })
 
 

@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-md-12 col-sm-6 col-12">
 
-                <ul></ul>
+                <ul id="chatLog"></ul>
             </div>
         </div>
     </div>
@@ -32,12 +32,24 @@
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
-        var socket = io();
+        let socket = io();
 
+        // send message data to server
         const sendMessage = () =>{
             const text = document.getElementById('message').value;
-            socket.emit('chat', text)
+            socket.emit('chat', text);
         }
+
+        // receive data from server to show
+        socket.on('showChat', (data) =>{
+            console.log(data);
+
+            let li = document.createElement('li')
+            li.textContent = data;
+
+            let chatting = document.getElementById('chatLog');
+            chatting.appendChild(li);
+        })
 
 
     </script>
